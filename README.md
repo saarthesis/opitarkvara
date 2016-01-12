@@ -1,5 +1,7 @@
 # opitarkvara
 
+Kuupäev: 2016-01-12
+
 Mõtteid:
 
 1. Vb teha Haskellis fullTree ja siis Java-s rakendame erinevaid otsimisalgoritme?
