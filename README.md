@@ -1,5 +1,11 @@
 # opitarkvara
 
+Kuupäev: 2016-01-19
+
+Uuendused:
+
+1. Nyyd saab lugeda ylesande pystitust eraldi failist.
+
 Kuupäev: 2016-01-12
 
 Mõtteid:
