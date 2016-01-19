@@ -1,45 +1,5 @@
 import System.IO
 
--- 1) hetkel korvalharusi ei tseki nii nagu seal n2ites oli. kas peaks? ei usu. full tree ikkagi. ilma loopideta.
--- 2) hetkel voib olla probleeme loopidega otsimisega.. nt. armukadad [2,2,0] ykski parent ei olnud [2,2,0]
---  aga ikka lopetas...Look into it! Ah ikka koik korras. asi oli selles, et seal ei leidunud variante, mis juba kasutuses ei oleks olnud.. koik lapsed olid loops
--- 3) kas loop lapsed peaks genereerima? aga lihtsalt neile enam ei genereeri lapsi? 
--- voi loop lapsi ei peaks yldse genereerima?
--- 4) opikus loop lapsi ei looda. AGA luuakse notAllowedStates, aga lihtsalt sealt edasi ei minda
--- kyll aga "mees rebase ylesandes ei looda not allowed states"
--- 5) me saame teha nii,et lisame * state kirjeldustesse, kui vahet ei ole, mis seal teistes on. 
--- ja siis programm ise loob need koikvoimalikud stated 
--- << jah see on oluline! Teeb ylesande kirjelduse palju lyhemaks!
--- 6) samuti voiks lisada mitu loppolekut, mitte ainult 1. aga fulltrees see pole oluline nagunii
--- 7) kannude puhul on natukene raske. Peab m6tlema, et kuidas. see, et saad yhes koik 2ra kallata jne..
--- seal on palju eeltingimusi.. Produktsioonidega saaks h2sti
--- kui ainult 0 1 , siis tuleb p2ris palju tingimusi
--- ma ei n2e, kuidas kanne saaks ilam produktsioonideta teha. Sest seal on palju tingiusi.. 
--- yhest kannust teise kallamine nt.
--- ARVAN, et KANNUDEGA oleks VOIMALIK teha 0 ja 1 AGA siis on PALJU STATE. VAJA oleks *. Mis VOIMALADAKS KIRJA PANNA
--- 8) nt prgrammis 2 mode: 1) olekutega nii nagu paadid olid 2) produktsioonidega. nt kannude jaoks
--- 9) hetkel t88tab edasi isegi kui vastus leitud... kas tohiks?? -- seega kabe jaab praegu lahtiseks..sest ta ei saa aru, et nuud koik
-
-
--- kokkuvotvalt:
--- 1) Produktsioonid luua.
--- 2) * lyhendamaks state kirjapanemist
--- 3) kas luua edasi tipust, kust leiti vastus? Ei tohiks vast?
--- 4) kas genereerida mitte lubatuid tippe? "mees rebane .." ylesandes ei tethud. AGA
--- "armukaded " ylesandes loodi mitte lubatud tipud ja sealt edasi ei mindud lihtsalt.
-
--- 1. kannude ylesanne
--- 2. armukadedad
--- 2b. mees rebane hani
--- 3. malem2ng
--- 4. ahviylesanne kus kohas saaks teha produktsioonidle
--- 4b. misjoni2ride ylesanne
--- 5. kuidas TI ylesandeid Lispis lahendatakse
--- 6. 2x2 male
--- 7. 3m2ng
--- 8. 3x3 kabe
--- 9. saaks ka muuta 
--- 10. tripstrapstrull
 
 
 
