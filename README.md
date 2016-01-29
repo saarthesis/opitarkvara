@@ -1,8 +1,26 @@
 # opitarkvara
 
-Kuupäev: 2016-01-19
+## Kuidas kasutada
 
-Uuendused:
+ghci
+
+Prelude> :l ProductionsSolver.hs
+
+*Main> buildFullTreeFromFile "teadmusbaas/mees_rebane_hani_vili_PROD.txt"
+
+*Main> buildFullTreeFromFile "teadmusbaas/kannud_PROD.txt" 
+
+*Main> buildFullTreeFromFile "teadmusbaas/armukadedad_purjetajad_PROD.txt" 
+
+
+## Kokkuvõtlik logi:
+
+Kuupäev: 2016-01-29
+
+1. 3 ülesande lahendust teadmusbaasi
+2. Produktsioonide lahendaja. Suur muudatus. Täiesti teine lähenemine võrreldes varasemaga.
+
+Kuupäev: 2016-01-19
 
 1. Nyyd saab lugeda ylesande pystitust eraldi failist.
 
