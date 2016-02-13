@@ -1,6 +1,11 @@
 # opitarkvara
 
-## Kuidas kasutada
+## Kuidas kasutada kasutajaliidest
+
+1. Ole projekti kaustas. /kasutajaliides
+2. gradle run
+
+## Kuidas kasutada Solver-it
 
 ghci
 
