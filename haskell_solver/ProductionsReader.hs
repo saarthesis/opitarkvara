@@ -7,14 +7,6 @@ import Data.Char
 import Data.List
 
 
--- 1. From file we can also read startState and endstate
--- This function reads only productions out
-type File = String
-readProductions :: File -> IO [Production]
-readProductions f = do 
-	contents <- readFile f
-	return $ parseProductions $ lines contents
-
 -- productionOnState (Production "" "(s,v)" "(0,v)") (State [2,3])
 -- returns: Just $ State [0,3]
 -- AND

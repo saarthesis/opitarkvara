@@ -12,19 +12,18 @@ ProductionsSolver reads Productions from file.
 -- 3. No parenthesis inside of teadmusbaas and times and dividings etc
 -}
 
-import ProductionsReader(readProductions, productionOnState, tupleIntoState)
--- productionOnState :: Production -> State -> Maybe State
+import ProductionsReader(parseProductions, productionOnState, tupleIntoState)
 
 import DataTypes
 import Data.List
-
 
 
 buildFullTreeFromFile f = do 
 	s <- readFirstState f 
 	es <- readEndStates f
 	ps <- readProductions f
-	printNode $ fullTree (Node s [] []) (Task s es ps) 
+	ns <- readNotAllowed f
+	printNode $ fullTree (Node s [] []) (Task s es ps ns) 
 
 
 fullTree :: Node -> Task -> Node
@@ -36,7 +35,7 @@ fullTree n t
 	| otherwise -- has children. repeat process
 		= Node (state n) (parents n) $ map (\c -> fullTree c t) cs
 	where
-		ss = applyProductions (productions t) (state n) -- [State]	
+		ss = filter (\s -> not $ elem s $ notallowed t) $ applyProductions (productions t) (state n) -- [State]	
 		ps = parents n ++ [n] -- previous generations
 		ns = map (\s -> Node s ps []) ss
 		cs = filter (not . loop) ns
@@ -64,18 +63,44 @@ test1_applyProductions = do
 	return $ applyProductions ps s
 -}
 
+skipComments :: [String] -> [String]
+skipComments ls = filter (\l -> "--" /= take 2 l) ls
+
+skipEmpty :: [String] -> [String]
+skipEmpty ls = filter (\l -> l /= "") ls
+
+skipNotAllowed :: [String] -> [String]
+skipNotAllowed ls =  filter (\l -> "not allowed" /= take 11 l) ls
+
+skipProductions :: [String] -> [String]
+skipProductions ls =  filter (\l -> "(" /= take 1 l && "kui" /= take 3 l) ls
+
 readFirstState :: FilePath -> IO State
 readFirstState f = do
 	cs <- readFile f
-	return $ tupleIntoState $ head $ lines cs
+	return $ tupleIntoState $ head $ skipEmpty $ skipComments $ lines cs
 
 readEndStates :: FilePath -> IO [State]
 readEndStates f = do
 	cs <- readFile f
-	return $ map tupleIntoState $ words $ head $ tail $ lines cs
+	return $ map tupleIntoState $ words $ head $ tail $ skipEmpty $ skipComments $ lines cs
+
+readProductions :: FilePath -> IO [Production]
+readProductions f = do 
+	cs <- readFile f
+	return $ parseProductions $ skipNotAllowed $ skipEmpty $ skipComments $ lines cs
+
+readNotAllowed :: FilePath -> IO [State]
+readNotAllowed f = do 
+	cs <- readFile f
+	let notAllowedLines = skipProductions $ skipEmpty $ skipComments $ lines cs
+	if length notAllowedLines == 0 then
+		return []
+	else 
+		return $ map tupleIntoState $ words $ drop 11 $ head notAllowedLines
 
 
--- Tegin m6ned muudatused, aga Core Data.Tree mooduli koodist. 
+-- Tegin m6ned muudatused, aga muidu Core Data.Tree mooduli koodist. 
 draw :: Node -> [String]
 draw (Node (State x) _ ts0) = (show x) : drawSubTrees ts0
   where drawSubTrees [] = []

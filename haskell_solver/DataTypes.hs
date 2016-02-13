@@ -4,7 +4,8 @@ data Task
 	= Task {
 	firstS :: State,
 	ends :: [State],
-	productions :: [Production]
+	productions :: [Production],
+	notallowed :: [State]
 }
 
 data Production 
