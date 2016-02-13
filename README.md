@@ -20,6 +20,10 @@ Prelude> :l ProductionsSolver.hs
 
 ## Kokkuvõtlik logi:
 
+Kuupäev: 2016-02-13
+
+1. Kasutajaliidese arendus: New/Save/SaveAs/Load teadmusbaas & tabs
+
 Kuupäev: 2016-01-29
 
 1. 3 ülesande lahendust teadmusbaasi
