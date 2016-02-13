@@ -17,13 +17,14 @@ Prelude> :l ProductionsSolver.hs
 
 *Main> buildFullTreeFromFile "teadmusbaas/armukadedad_purjetajad_PROD.txt" 
 
+*Main> buildFullTreeFromFile "teadmusbaas/armukadedad_purjetajad_PROD_not_allowed.txt" 
 
 ## Kokkuvõtlik logi:
 
 Kuupäev: 2016-02-13
 
 1. Kasutajaliidese arendus: New/Save/SaveAs/Load teadmusbaas & tabs
-2. Mootori arendus: Nüüd on võimalik lisada "not allowed" states teadmusbaasis ja on võimalik kirjutada kommentaare ja tühje ridu teadmusbaasi. Näite: https://github.com/saarthesis/opitarkvara/blob/master/haskell_solver/teadmusbaas/armukadedad_purjetajad_PROD_with_not_allowed.txt
+2. Mootori arendus: Nüüd on võimalik lisada "not allowed" states teadmusbaasis ja on võimalik kirjutada kommentaare ja tühje ridu teadmusbaasi. Näide: https://github.com/saarthesis/opitarkvara/blob/master/haskell_solver/teadmusbaas/armukadedad_purjetajad_PROD_with_not_allowed.txt
 
 Kuupäev: 2016-01-29
 
