@@ -23,6 +23,8 @@ Prelude> :l ProductionsSolver.hs
 Kuupäev: 2016-02-13
 
 1. Kasutajaliidese arendus: New/Save/SaveAs/Load teadmusbaas & tabs
+2. Mootori arendus: Nüüd on võimalik lisada "not allowed" states teadmusbaasis.
+3. Mootori arendus: Nüüd on võimalik kirjutada kommentaare ja tühje ridu teadmusbaasi.
 
 Kuupäev: 2016-01-29
 
