@@ -27,6 +27,11 @@ Prelude> :l ProductionsSolver.hs
 
 ## Kokkuvõtlik logi:
 
+Kuupäev: 2016-02-23
+
+1. Eraldiseisev kaust jooksva programmi jaoks.
+2. Haskell ühendatud Java-ga. Saab vajutada "run" ning väljastab tulemuse "puu" tabis.
+
 Kuupäev: 2016-02-13
 
 1. Kasutajaliidese arendus: New/Save/SaveAs/Load teadmusbaas & tabs
