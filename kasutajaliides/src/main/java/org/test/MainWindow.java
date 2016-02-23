@@ -13,7 +13,10 @@ import javax.swing.JTabbedPane;
 
 public class MainWindow extends JFrame{
 	
-	protected JTextArea textArea;
+	protected JTextArea teadmusbaasText;
+	private JTabbedPane tabbedPane;
+
+	protected JTextArea puuText;
 
 	MainWindow(){
 	    
@@ -24,16 +27,20 @@ public class MainWindow extends JFrame{
 		// teadmusbaas panel
 		JPanel teadmusbaasPanel = new JPanel();
 		teadmusbaasPanel.setLayout(new GridLayout(0, 1));
-		textArea = new JTextArea("Write here");
-		JScrollPane scrollPane = new JScrollPane(textArea);
+		teadmusbaasText = new JTextArea("Write here");
+		JScrollPane scrollPane = new JScrollPane(teadmusbaasText);
 		teadmusbaasPanel.add(scrollPane);
 
 		// puu panel
-		// currenlty empty!
 		JPanel puuPanel = new JPanel();
+		puuPanel.setLayout(new GridLayout(0, 1));
+		puuText = new JTextArea("Puu tuleb siia");
+		JScrollPane scrollPane2 = new JScrollPane(puuText);
+		puuPanel.add(scrollPane2);
+
 
 		// tabs
-		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Teadmusbaas",teadmusbaasPanel);
 		tabbedPane.addTab("Puu",puuPanel);
 		add(tabbedPane);
@@ -46,6 +53,15 @@ public class MainWindow extends JFrame{
 	    
 	    
 	}
+
+	public void switchToTreeTab(){
+		tabbedPane.setSelectedIndex(1);
+	}
+
+	public void switchToTeadmusbaas(){
+		tabbedPane.setSelectedIndex(0);
+	}
+
 
 
 }

@@ -15,6 +15,14 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+
+import java.lang.Runtime;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.InputStreamReader;
+import java.lang.Exception;
+
+
 import org.apache.commons.io.IOUtils;
 
 public class FileMenu extends JMenu{
@@ -31,6 +39,17 @@ public class FileMenu extends JMenu{
 		JMenuItem save = new JMenuItem("Save");
 		JMenuItem saveas = new JMenuItem("Save as");
 		JMenuItem load = new JMenuItem("Load");
+		JMenuItem run = new JMenuItem("Run");
+
+		run.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+				runFile();
+
+			}
+		});
 
 		newItem.addActionListener(new ActionListener() {
 			
@@ -76,11 +95,63 @@ public class FileMenu extends JMenu{
 		add(save);
 		add(saveas);
 		add(load);
+		add(run);
+	}
+
+	private void runFile(){
+		// 1. save current teadmusbaas
+		saveFile();
+		// 2. get teadmusbaas location
+		String p = selectedFile.getAbsolutePath();
+		// 3. switch tabs
+		mw.switchToTreeTab();
+		// 4. run haskell program with teadmusbaas location
+		String output = getHaskellOutput(p);
+		// 5. display output in tree tab
+		mw.puuText.setText(output);
+	}
+
+	private String getHaskellOutput(String teadmusbaasPath){
+		String teadmusbaas = teadmusbaasPath; // "teadmusbaas/armukadedad_purjetajad_PROD.txt";
+		 
+		String programm = "./ProductionsSolver"; // jar peab asuma samas failis, kus haskell
+
+		String execStr = programm + " " + teadmusbaas;
+
+		String output = "";
+
+		try {
+		Runtime rt = Runtime.getRuntime();
+		Process pr = rt.exec(execStr);
+
+			try{
+		    BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+ 
+                String line=null;
+ 
+                while((line=input.readLine()) != null) {
+                	output += line + "\n";
+                }
+ 
+                int exitVal = pr.waitFor();
+                System.out.println("Exited with error code "+exitVal);
+ 
+        	} catch(Exception e) {
+                System.out.println(e.toString());
+                e.printStackTrace();
+            }
+
+
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return output;
 	}
 
 	private void startNewFile(){
 
-		mw.textArea.setText("");
+		mw.teadmusbaasText.setText("");
 		selectedFile = null;
 
 	}
@@ -99,7 +170,7 @@ public class FileMenu extends JMenu{
 			try {
 
 				String content = IOUtils.toString(new FileReader(file));
-				mw.textArea.setText(content);
+				mw.teadmusbaasText.setText(content);
 
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
@@ -107,6 +178,8 @@ public class FileMenu extends JMenu{
 					e1.printStackTrace();
 				}
 		}
+
+		mw.switchToTeadmusbaas();
 
 	}
 
@@ -118,7 +191,7 @@ public class FileMenu extends JMenu{
 		}
 		else{
 
-			String text = mw.textArea.getText();
+			String text = mw.teadmusbaasText.getText();
 
 			try {
 				PrintWriter pw = new PrintWriter(selectedFile);
@@ -144,7 +217,7 @@ public class FileMenu extends JMenu{
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 
 			File file = fileChooser.getSelectedFile();
-			String text = mw.textArea.getText();
+			String text = mw.teadmusbaasText.getText();
 
 			try{
 				new FileReader(file);

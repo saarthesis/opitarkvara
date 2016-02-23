@@ -1,3 +1,4 @@
+-- nagu n2ha, siis kui ei kasuta "not allowed" olekute reeglit, siis tuleb teadmusbaas palju pikem
 (3,3,1)
 (0,0,0)
 kui (m-1>=0)&&(m-1>=n)&&(3-m+1>=3-n) siis (m,n,1)->(m-1,n,0)

@@ -16,7 +16,13 @@ import ProductionsReader(parseProductions, productionOnState, tupleIntoState)
 
 import DataTypes
 import Data.List
+import System.Environment
 
+main = do 
+	arg <- getArgs
+	case arg of
+		[f] -> buildFullTreeFromFile f
+		_ -> return ()
 
 buildFullTreeFromFile f = do 
 	s <- readFirstState f 

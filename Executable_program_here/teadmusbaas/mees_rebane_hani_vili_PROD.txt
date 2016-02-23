@@ -1,5 +1,10 @@
+--first state
 (1,1,1,1)
+-- end state
 (0,0,0,0)
+
+-- some productions;
+
 (1,r,1,v)->(0,r,0,v)
 kui (r+h/=2) siis (1,r,h,1)->(0,r,h,0)
 kui (h+v/=2) siis (1,1,h,v)->(0,0,h,v)
