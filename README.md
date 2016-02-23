@@ -2,8 +2,9 @@
 
 ## Kuidas jooksutada programmi
 
-1. zip asub [lingil] (https://www.dropbox.com/s/5tdl4etp8g8dzdd/Opitarkvara_1.0.zip?dl=0)
-2. 
+1. Laadi alla zip [lingil] (https://www.dropbox.com/s/5tdl4etp8g8dzdd/Opitarkvara_1.0.zip?dl=0)
+2. Paki lahti
+3. java -jar kasutajaliides.jar
 
 ## Kuidas kasutada kasutajaliidest
 
