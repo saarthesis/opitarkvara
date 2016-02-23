@@ -6,25 +6,6 @@
 2. Paki lahti
 3. java -jar kasutajaliides.jar
 
-## Kuidas kasutada kasutajaliidest
-
-1. Ole projekti kaustas. /kasutajaliides
-2. gradle run
-
-## Kuidas kasutada Solver-it
-
-ghci
-
-Prelude> :l ProductionsSolver.hs
-
-*Main> buildFullTreeFromFile "teadmusbaas/mees_rebane_hani_vili_PROD.txt"
-
-*Main> buildFullTreeFromFile "teadmusbaas/kannud_PROD.txt" 
-
-*Main> buildFullTreeFromFile "teadmusbaas/armukadedad_purjetajad_PROD.txt" 
-
-*Main> buildFullTreeFromFile "teadmusbaas/armukadedad_purjetajad_PROD_not_allowed.txt" 
-
 ## Kokkuvõtlik logi:
 
 Kuupäev: 2016-02-23
@@ -58,3 +39,23 @@ Protsess:
 1. Alguses proovisin Prologis teha "keerdülesande" stiilis. Aga siis sain aru, et see ei ole piisavalt "general" lahendus. Sest peaks tegema igale uuele ülesandele teise Prologi koodi.
 2. Nüüd hakkasin arendama Prologis "puu" meetodil, aga arendamise käigus mõtlesin, et on paremaid keeli sellise lähenemise jaoks.
 3. Viimase versiooni tegin Haskellis, mis on ka siin üleval.
+
+
+## Kuidas kasutada kasutajaliidest
+
+1. Ole projekti kaustas. /kasutajaliides
+2. gradle run
+
+## Kuidas kasutada Solver-it
+
+ghci
+
+Prelude> :l ProductionsSolver.hs
+
+*Main> buildFullTreeFromFile "teadmusbaas/mees_rebane_hani_vili_PROD.txt"
+
+*Main> buildFullTreeFromFile "teadmusbaas/kannud_PROD.txt" 
+
+*Main> buildFullTreeFromFile "teadmusbaas/armukadedad_purjetajad_PROD.txt" 
+
+*Main> buildFullTreeFromFile "teadmusbaas/armukadedad_purjetajad_PROD_not_allowed.txt" 
