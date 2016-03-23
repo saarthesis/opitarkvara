@@ -10,7 +10,7 @@
 
 Kuupäev: 2016-03-33
 
-1. Puu edastatakse kasutajale visuaalselt kastikestega ja joontega ja värvidega.
+1. Puu edastatakse kasutajale visuaalselt kastikestega, joontega ja värvidega.
 2. Algoritmid on animatsiooniga: süvitsi, laiuti
 
 Kuupäev: 2016-02-23
