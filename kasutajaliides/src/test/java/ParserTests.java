@@ -1,12 +1,15 @@
-package org.test;
+
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import org.test.parser.HaskellOutputParser;
+
 import java.util.LinkedList;
 
 
 public class ParserTests{
 
+	/*
   @Test
   public void testParse(){
     String n1 = "Node {state = State [0,0,0,0], parents = [], children = [Node {state = State [1,1,0,0], parents = [], children = []}]}";
@@ -61,4 +64,5 @@ public class ParserTests{
   public void childrenNodes_test01(){
     
   }
+  */
 }
