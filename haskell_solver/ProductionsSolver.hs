@@ -18,11 +18,28 @@ import DataTypes
 import Data.List
 import System.Environment
 
+
+{- this is for returning nodes -}
+main = do 
+	args <- getArgs
+	if head(args) == "endstates" then do
+		es <- readEndStates (args !! 1)
+		putStr $ show es
+	else if length args == 1 then do
+		tree <- buildFullTreeFromFile2 (head args)
+		putStr $ show tree
+		--putStr $ show (Node (State [1,1,0,0]) [] [])
+	else do
+		return ()
+
+{-
 main = do 
 	arg <- getArgs
 	case arg of
 		[f] -> buildFullTreeFromFile f
 		_ -> return ()
+-}
+
 
 buildFullTreeFromFile f = do 
 	s <- readFirstState f 
@@ -30,6 +47,13 @@ buildFullTreeFromFile f = do
 	ps <- readProductions f
 	ns <- readNotAllowed f
 	printNode $ fullTree (Node s [] []) (Task s es ps ns) 
+
+buildFullTreeFromFile2 f = do 
+	s <- readFirstState f 
+	es <- readEndStates f
+	ps <- readProductions f
+	ns <- readNotAllowed f
+	return $ fullTree (Node s [] []) (Task s es ps ns) 
 
 
 fullTree :: Node -> Task -> Node

@@ -1,4 +1,4 @@
-package org.test;
+package org.test.GUI;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -6,38 +6,39 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
+
+import org.test.parser.InvalidInputException;
+
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import java.lang.Exception;
 
 public class MainWindow extends JFrame{
 	
-	protected JTextArea teadmusbaasText;
 	private JTabbedPane tabbedPane;
 
-	protected JTextArea puuText;
+	public TreePanel puuPanel;
+	private TeadmusbaasPanel teadmusbaasPanel;
 
-	MainWindow(){
+	
+	private final int WIDTH = 1000;
+
+	public MainWindow(){
+		
+		Dimension screenSize = new Dimension(WIDTH, 700);//Toolkit.getDefaultToolkit().getScreenSize();
+	    setBounds(0,0,screenSize.width, screenSize.height);
 	    
 	    // menu bar
 		MenuBar menubar = new MenuBar(this);
 		setJMenuBar(menubar);
 
 		// teadmusbaas panel
-		JPanel teadmusbaasPanel = new JPanel();
-		teadmusbaasPanel.setLayout(new GridLayout(0, 1));
-		teadmusbaasText = new JTextArea("Write here");
-		JScrollPane scrollPane = new JScrollPane(teadmusbaasText);
-		teadmusbaasPanel.add(scrollPane);
-
+		 teadmusbaasPanel = new TeadmusbaasPanel();
+		
 		// puu panel
-		JPanel puuPanel = new JPanel();
-		puuPanel.setLayout(new GridLayout(0, 1));
-		puuText = new JTextArea("Puu tuleb siia");
-		JScrollPane scrollPane2 = new JScrollPane(puuText);
-		puuPanel.add(scrollPane2);
-
+		puuPanel = new TreePanel(this);
 
 		// tabs
 		tabbedPane = new JTabbedPane();
@@ -46,10 +47,10 @@ public class MainWindow extends JFrame{
 		add(tabbedPane);
 
 
-		Dimension screenSize = new Dimension(500, 500);//Toolkit.getDefaultToolkit().getScreenSize();
-	    setBounds(0,0,screenSize.width, screenSize.height);
+
 	    setVisible(true);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	    
 	    
 	}
@@ -62,6 +63,19 @@ public class MainWindow extends JFrame{
 		tabbedPane.setSelectedIndex(0);
 	}
 
+	public void displayOutput(String input, String endStates){
+		try{
+			System.out.println("display output");
+			puuPanel.displayOutput(input, endStates);
+		}
+		catch(InvalidInputException e){
+			e.printStackTrace();
+		}
+	}
+
+	public TeadmusbaasPanel getTeadmusbaasPanel() {
+		return teadmusbaasPanel;
+	}
 
 
 }
