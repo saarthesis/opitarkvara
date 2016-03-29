@@ -293,5 +293,9 @@ public class Node {
 	public List<Node> getChildren(){
 		return children;
 	}
+
+	public Integer getY() {
+		return y;
+	}
 	
 }

@@ -127,7 +127,14 @@ public class DrawPanel extends JPanel{
 			Integer min = null;
 			Integer max = null;
 			
+			Integer maxY = null;
+			
 			for(Node n : TREE_NODES){
+				
+				if(maxY == null) maxY = n.getY();
+				else if(maxY < n.getY()){
+					maxY = n.getY();
+				}
 				
 				if(min == null){
 					min = n.getX();
@@ -149,11 +156,13 @@ public class DrawPanel extends JPanel{
 			int newWidth = ((0 + max) + (Math.abs(0 - min)))*2;
 			
 			for(Node n: TREE_NODES){
-				n.setX(n.getX() + newWidth/2);
-			}
+				n.setX(n.getX() + newWidth/2 + 100);
+			} 
+			
+			int newHeight = maxY + 200;
 				
 			//System.out.println("-------UUUS WIDTH ON----- " + newWidth);
-			this.setPreferredSize(new Dimension(newWidth, (int) this.getPreferredSize().getHeight()));
+			this.setPreferredSize(new Dimension(newWidth, newHeight));
 			this.updateUI();
 			
 			return newWidth;
