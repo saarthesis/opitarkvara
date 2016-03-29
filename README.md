@@ -8,7 +8,11 @@
 
 ## Kokkuvõtlik logi:
 
-Kuupäev: 2016-03-33
+Kuupäev: 2016-03-29 (uut jari ei teinud veel)
+
+1. Nüüd mahuvad kõik puud ekraanile ära.
+
+Kuupäev: 2016-03-23
 
 1. Puu edastatakse kasutajale visuaalselt kastikestega, joontega ja värvidega.
 2. Algoritmid on animatsiooniga: süvitsi, laiuti
