@@ -43,18 +43,8 @@ public class FileMenu extends JMenu{
 		JMenuItem load = new JMenuItem("Load");
 		JMenuItem run = new JMenuItem("Run");
 
-		JMenuItem test = new JMenuItem("TEST");
 
-
-		test.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			
-				String input = "Node {state = State [0,0], children = [Node {state = State [0,3], children = [Node {state = State [3,0], children = [Node {state = State [3,3], children = [Node {state = State [4,2], children = [Node {state = State [0,2], children = [Node {state = State [2,0], children = []}]},Node {state = State [4,0], children = [Node {state = State [1,3], children = [Node {state = State [1,0], children = [Node {state = State [0,1], children = [Node {state = State [4,1], children = [Node {state = State [2,3], children = []},Node {state = State [4,3], children = []}]}]}]},Node {state = State [4,3], children = []}]},Node {state = State [4,3], children = []}]},Node {state = State [4,3], children = [Node {state = State [4,0], children = [Node {state = State [1,3], children = [Node {state = State [1,0], children = [Node {state = State [0,1], children = [Node {state = State [4,1], children = [Node {state = State [2,3], children = []}]}]}]}]}]}]}]},Node {state = State [4,3], children = [Node {state = State [4,0], children = [Node {state = State [1,3], children = [Node {state = State [1,0], children = [Node {state = State [0,1], children = [Node {state = State [4,1], children = [Node {state = State [2,3], children = []}]}]}]}]}]}]}]},Node {state = State [4,0], children = [Node {state = State [1,3], children = [Node {state = State [1,0], children = [Node {state = State [0,1], children = [Node {state = State [4,1], children = [Node {state = State [2,3], children = []},Node {state = State [4,3], children = []}]}]}]},Node {state = State [4,3], children = []}]},Node {state = State [4,3], children = []}]}]},Node {state = State [4,3], children = [Node {state = State [4,0], children = [Node {state = State [1,3], children = [Node {state = State [1,0], children = [Node {state = State [0,1], children = [Node {state = State [4,1], children = [Node {state = State [2,3], children = []}]}]}]}]}]}]}]},Node {state = State [4,0], children = [Node {state = State [1,3], children = [Node {state = State [0,3], children = [Node {state = State [3,0], children = [Node {state = State [3,3], children = [Node {state = State [4,2], children = [Node {state = State [0,2], children = [Node {state = State [2,0], children = []}]},Node {state = State [4,3], children = []}]},Node {state = State [4,3], children = []}]}]},Node {state = State [4,3], children = []}]},Node {state = State [1,0], children = [Node {state = State [0,1], children = [Node {state = State [0,3], children = [Node {state = State [3,0], children = [Node {state = State [3,3], children = [Node {state = State [4,2], children = [Node {state = State [0,2], children = [Node {state = State [2,0], children = []}]},Node {state = State [4,3], children = []}]},Node {state = State [4,3], children = []}]}]},Node {state = State [4,3], children = []}]},Node {state = State [4,1], children = [Node {state = State [2,3], children = []},Node {state = State [4,3], children = [Node {state = State [0,3], children = [Node {state = State [3,0], children = [Node {state = State [3,3], children = [Node {state = State [4,2], children = [Node {state = State [0,2], children = [Node {state = State [2,0], children = []}]}]}]}]}]}]}]}]}]},Node {state = State [4,3], children = [Node {state = State [0,3], children = [Node {state = State [3,0], children = [Node {state = State [3,3], children = [Node {state = State [4,2], children = [Node {state = State [0,2], children = [Node {state = State [2,0], children = []}]}]}]}]}]}]}]},Node {state = State [4,3], children = [Node {state = State [0,3], children = [Node {state = State [3,0], children = [Node {state = State [3,3], children = [Node {state = State [4,2], children = [Node {state = State [0,2], children = [Node {state = State [2,0], children = []}]}]}]}]}]}]}]}]}";
-				mw.puuPanel.drawArea.displayFull(input, "");
-			}
-		});
+		
 
 		run.addActionListener(new ActionListener() {
 			
@@ -111,7 +101,6 @@ public class FileMenu extends JMenu{
 		add(saveas);
 		add(load);
 		add(run);
-		add(test);
 	}
 
 	private void runFile(){

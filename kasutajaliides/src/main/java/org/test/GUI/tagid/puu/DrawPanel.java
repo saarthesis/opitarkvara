@@ -1,4 +1,4 @@
-package org.test.GUI;
+package org.test.GUI.tagid.puu;
 
 import javax.swing.JPanel;
 
@@ -31,11 +31,11 @@ public class DrawPanel extends JPanel{
 
 	public DrawPanel(TreePanel treePanel){
 		this.treePanel = treePanel;
-		START_X = (int) Math.round(treePanel.mw.getSize().getWidth()/1.5);
+		START_X = 0;//(int) Math.round(treePanel.mw.getSize().getWidth()/1.5);
 		setBackground(Color.WHITE);
 		// if you want to have scrollpane working you need to adjust the size
 		// if you do not adjust the size, then scroll does not know that it has room to scroll
-		setPreferredSize(new Dimension(1100,1000)); 
+		setPreferredSize(new Dimension(500,1000)); 
 
 	}
 
@@ -81,35 +81,89 @@ public class DrawPanel extends JPanel{
 	*/
 	public void displayOutput(String nodesInput, String endStates) throws InvalidInputException{
 
-		System.out.println("Inside draw panel display output!");
+		//System.out.println("Inside draw panel display output!");
 		
 		// RESTART
 		TREE_NODES.clear();
 		repaint();
 		Node.ID = 0;
-		
-		System.out.println("endstates were " + endStates);
-		
-		//this.node = null; // not necessary, because new display*() init new node
-		
-		// HERE SHOULD COME ALSO THAT IT REPAINTs it into white
-		// no need to clean node settings
+
+		//System.out.println("endstates were " + endStates);
 
 		switch(treePanel.getAlgo()){
 			case "Süvitsi":
+				createFullTreeNode(nodesInput, endStates);
 				displayDepth(nodesInput, endStates);
 				break;
 			case "Laiuti":
+				createFullTreeNode(nodesInput, endStates);
 				displayWidth(nodesInput, endStates);
 				break;
 			case "Full Tree":
-				displayFull(nodesInput, endStates);
+				createFullTreeNode(nodesInput, endStates);
+				repaint();
 				break;
 			default:
 				throw new InvalidInputException("No algo defined!");
 		}
 	}
 
+	/**
+	 * 
+	 * Vastavalt puu suurusele peab olema ka "joonistav ala", et
+	 * ikka kogu puu oleks ekraanil. Erinevatel puudel on erinev "joonistava ala" 
+	 * suurus.
+	 * 
+	 */
+	private Integer adjustScrollArea() {
+		
+		
+		if(TREE_NODES.size()== 0){
+			//do nothing
+			return null;
+		} 
+		else{
+			// kohenda "joonistava ala" laiust
+			Integer min = null;
+			Integer max = null;
+			
+			for(Node n : TREE_NODES){
+				
+				if(min == null){
+					min = n.getX();
+				}else if (n.getX() < min){
+					min = n.getX();
+				}
+				
+				if(max == null){
+					max = n.getX();
+				}
+				else if(n.getX() > max){
+					max = n.getX();
+				}
+			}
+			
+			System.out.println("------min is: --- " + min);			
+			System.out.println("------max is: --- " + max);
+
+			int newWidth = ((0 + max) + (Math.abs(0 - min)))*2;
+			
+			for(Node n: TREE_NODES){
+				n.setX(n.getX() + newWidth/2);
+			}
+				
+			System.out.println("-------UUUS WIDTH ON----- " + newWidth);
+			this.setPreferredSize(new Dimension(newWidth, (int) this.getPreferredSize().getHeight()));
+			this.updateUI();
+			
+			return newWidth;
+		}
+		
+		
+		
+		
+		
+	}
 
 	/**
 	 * 
@@ -169,13 +223,6 @@ public class DrawPanel extends JPanel{
 
 
 
-	public void displayFull(String input, String endStates){
-		System.out.println("Full tree display!");
-	
-		createFullTreeNode(input, endStates);
-		
-		repaint();
-	}
 
 	/**
 	 * 
@@ -191,8 +238,22 @@ public class DrawPanel extends JPanel{
 
 		this.node = node;
 
+		// see lisab samuti TREE_NODESi kõik need tipud
     	this.node.calculateNodePositionOnTree(START_X, START_Y);
+    	
+    	//see kohendab
     	adjustTreeStructure();
+    	
+    	adjustScrollArea();
+	
+    	// see kohendab ala
+    	// üks variant oleks liigutada neid keskele
+    	// teine variant on uuesti kõik arvutada.
+    	// millegi pärast praegu ma ei mõtle välja, et mida vaja teha on.
+	//Integer newWidth = adjustScrollArea();
+    	//this.node.calculateNodePositionOnTree(newWidth/2, START_Y);
+    	//adjustTreeStructure();
+	
 	}
 
 	
@@ -225,7 +286,7 @@ public class DrawPanel extends JPanel{
 
 		
 		System.out.println("Display width!");
-		createFullTreeNode(input, endStates);
+		//createFullTreeNode(input, endStates); // liigutasime selle ülemisse meetodi
 
 		TREE_NODES.clear(); // we need to empty it, because otherways there is full tree
 		// but note this.node still stays!! ;) so we can use that
@@ -238,7 +299,7 @@ public class DrawPanel extends JPanel{
 		boolean jump_out = false;
 		
 		while(true){
-			System.out.println("loooooooooooop-----------");
+			System.out.println("loooooooooooop süvitsi -----------");
 			if(df.size()== 0){
 				System.out.println("size is 0 we jumped out!");
 				break; // lahendit ei leidunud
@@ -305,7 +366,7 @@ public class DrawPanel extends JPanel{
 	public void displayDepth2(String input, String endStates, AnimationThread animation){
 		System.out.println("DEPTH tree display!");
 		
-		createFullTreeNode(input, endStates);
+		//createFullTreeNode(input, endStates); //liigutasime selle ülemisse meetodi.
 
 		TREE_NODES.clear(); // we need to empty it, because otherways there is full tree
 		// but note this.node still stays!! ;) so we can use that

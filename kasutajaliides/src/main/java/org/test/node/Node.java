@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.test.GUI.DrawPanel;
+import org.test.GUI.tagid.puu.DrawPanel;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -269,7 +269,14 @@ public class Node {
 		}	
 	}
 
+	
+	public Integer getX(){
+		return x;
+	}
 
+	public void setX(int x){
+		this.x = x;
+	}
 
 	public int getId() {
 		return id;

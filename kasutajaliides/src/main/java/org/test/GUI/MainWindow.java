@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
+import org.test.GUI.tagid.TeadmusbaasPanel;
+import org.test.GUI.tagid.puu.TreePanel;
 import org.test.parser.InvalidInputException;
 
 import javax.swing.JScrollPane;

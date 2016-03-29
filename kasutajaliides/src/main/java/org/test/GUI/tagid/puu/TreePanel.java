@@ -1,4 +1,4 @@
-package org.test.GUI;
+package org.test.GUI.tagid.puu;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,6 +11,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
+import org.test.GUI.AlgorithmPanel;
+import org.test.GUI.MainWindow;
 import org.test.parser.InvalidInputException;
 
 public class TreePanel extends JPanel{
@@ -27,7 +29,8 @@ public class TreePanel extends JPanel{
 
 		// algorithm area
 		algorithmArea = new AlgorithmPanel();
-		    	
+		
+		// scrolli suurus sõltub draw area suurusest
 		JScrollPane scroll = new JScrollPane(drawArea);
 		
 		add("North", algorithmArea);

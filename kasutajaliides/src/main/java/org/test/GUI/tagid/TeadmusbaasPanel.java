@@ -1,4 +1,4 @@
-package org.test.GUI;
+package org.test.GUI.tagid;
 
 import java.awt.GridLayout;
 
