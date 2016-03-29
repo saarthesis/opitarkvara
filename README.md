@@ -11,6 +11,7 @@
 Kuupäev: 2016-03-29 (uut jari ei teinud veel)
 
 1. Nüüd mahuvad kõik puud ekraanile ära.
+2. Saab valida File->SnapShot See väljastab pildi puust.
 
 Kuupäev: 2016-03-23
 
