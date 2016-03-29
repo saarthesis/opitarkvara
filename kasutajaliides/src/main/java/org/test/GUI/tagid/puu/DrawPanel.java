@@ -143,8 +143,8 @@ public class DrawPanel extends JPanel{
 				}
 			}
 			
-			System.out.println("------min is: --- " + min);			
-			System.out.println("------max is: --- " + max);
+			//System.out.println("------min is: --- " + min);			
+			//System.out.println("------max is: --- " + max);
 
 			int newWidth = ((0 + max) + (Math.abs(0 - min)))*2;
 			
@@ -152,7 +152,7 @@ public class DrawPanel extends JPanel{
 				n.setX(n.getX() + newWidth/2);
 			}
 				
-			System.out.println("-------UUUS WIDTH ON----- " + newWidth);
+			//System.out.println("-------UUUS WIDTH ON----- " + newWidth);
 			this.setPreferredSize(new Dimension(newWidth, (int) this.getPreferredSize().getHeight()));
 			this.updateUI();
 			
@@ -285,7 +285,7 @@ public class DrawPanel extends JPanel{
 	public void displayWidth2(String input, String endStates, AnimationThread animation){
 
 		
-		System.out.println("Display width!");
+		//System.out.println("Display width!");
 		//createFullTreeNode(input, endStates); // liigutasime selle ülemisse meetodi
 
 		TREE_NODES.clear(); // we need to empty it, because otherways there is full tree
@@ -299,14 +299,14 @@ public class DrawPanel extends JPanel{
 		boolean jump_out = false;
 		
 		while(true){
-			System.out.println("loooooooooooop süvitsi -----------");
+			//System.out.println("loooooooooooop süvitsi -----------");
 			if(df.size()== 0){
 				System.out.println("size is 0 we jumped out!");
 				break; // lahendit ei leidunud
 			}
 			
 			Node n = df.pop();
-			System.out.println("we are looking node: " + n.simpleToString());
+			//System.out.println("we are looking node: " + n.simpleToString());
 			
 			
 
@@ -340,7 +340,7 @@ public class DrawPanel extends JPanel{
 
 				if(anyAccepting(n.getChildren())) break;
 
-				System.out.println("after adding to stack");
+				//System.out.println("after adding to stack");
 				for(Node stack_node : df){
 					System.out.println(stack_node.simpleToString());
 				}
@@ -364,7 +364,7 @@ public class DrawPanel extends JPanel{
 
 
 	public void displayDepth2(String input, String endStates, AnimationThread animation){
-		System.out.println("DEPTH tree display!");
+	//	System.out.println("DEPTH tree display!");
 		
 		//createFullTreeNode(input, endStates); //liigutasime selle ülemisse meetodi.
 
@@ -377,21 +377,21 @@ public class DrawPanel extends JPanel{
 		TREE_NODES.add(this.node);
 		
 		while(true){
-			System.out.println("loooooooooooop-----------");
+		//	System.out.println("loooooooooooop-----------");
 			if(df.size()== 0){
-				System.out.println("size is 0 we jumped out!");
+			//	System.out.println("size is 0 we jumped out!");
 				break; // lahendit ei leidunud
 			}
 			
 			Node n = df.pop();
-			System.out.println("we are looking node: " + n.simpleToString());
+		//	System.out.println("we are looking node: " + n.simpleToString());
 			
 			
 			
 				// lisame vahetud järglased stacki algusesse
 				// pane tähele, et teem seda tagurpidi, sest siis on õiges järjekorras
 				for(int i = n.getChildren().size()-1; i >= 0; i--){
-					System.out.println("we added node");
+			//		System.out.println("we added node");
 					TREE_NODES.add(n.getChildren().get(i));
 					df.push(n.getChildren().get(i));
 				}

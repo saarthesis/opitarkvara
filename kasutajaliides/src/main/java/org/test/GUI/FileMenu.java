@@ -1,7 +1,9 @@
 package org.test.GUI;
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,8 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
-
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -26,6 +27,14 @@ import java.lang.Exception;
 
 
 import org.apache.commons.io.IOUtils;
+import org.test.GUI.tagid.puu.DrawPanel;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 
 public class FileMenu extends JMenu{
 
@@ -43,8 +52,18 @@ public class FileMenu extends JMenu{
 		JMenuItem load = new JMenuItem("Load");
 		JMenuItem run = new JMenuItem("Run");
 
+		JMenuItem snap_shot = new JMenuItem("SnapShot");
 
-		
+		snap_shot.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+				snapShot();
+
+			}
+
+		});
 
 		run.addActionListener(new ActionListener() {
 			
@@ -101,6 +120,22 @@ public class FileMenu extends JMenu{
 		add(saveas);
 		add(load);
 		add(run);
+		add(snap_shot);
+	}
+	
+	private void snapShot(){
+		String name = JOptionPane.showInputDialog(mw, "Sisesta väljastava pildi nimi:");
+		DrawPanel panel = mw.puuPanel.drawArea;
+		BufferedImage bi = new BufferedImage(panel.getSize().width, panel.getSize().height, BufferedImage.TYPE_INT_ARGB); 
+		Graphics g = bi.createGraphics();
+		panel.paint(g);  //this == JComponent
+		g.dispose();
+		try{
+			ImageIO.write(bi,"png",new File(name+".png"));
+			JOptionPane.showMessageDialog(mw, "Success!");
+		}catch (Exception e) {
+			JOptionPane.showMessageDialog(mw, "FAILED!");
+		}
 	}
 
 	private void runFile(){
