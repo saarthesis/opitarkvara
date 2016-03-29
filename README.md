@@ -2,11 +2,16 @@
 
 ## Kuidas jooksutada programmi
 
-1. Laadi alla zip [lingil] (https://www.dropbox.com/s/5tdl4etp8g8dzdd/Opitarkvara_1.0.zip?dl=0)
+1. Laadi alla zip [lingil] (https://www.dropbox.com/s/kst05vqr5ie0emw/Opitarkvara_1.2.zip?dl=0) (uus väljalase 2016-03-23)
 2. Paki lahti
 3. java -jar kasutajaliides.jar
 
 ## Kokkuvõtlik logi:
+
+Kuupäev: 2016-03-33
+
+1. Puu edastatakse kasutajale visuaalselt kastikestega, joontega ja värvidega.
+2. Algoritmid on animatsiooniga: süvitsi, laiuti
 
 Kuupäev: 2016-02-23
 
