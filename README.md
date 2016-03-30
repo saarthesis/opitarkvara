@@ -2,7 +2,7 @@
 
 ## Kuidas jooksutada programmi
 
-1. Laadi alla zip [lingil] (https://www.dropbox.com/s/kst05vqr5ie0emw/Opitarkvara_1.2.zip?dl=0) (uus väljalase 2016-03-23)
+1. Laadi alla zip [lingil] (https://www.dropbox.com/s/nj1ikm19mkwerle/Opitarkvara_1.3.zip?dl=0) (uus väljalase 2016-03-30)
 2. Paki lahti
 3. java -jar kasutajaliides.jar
 
@@ -12,8 +12,7 @@ Kuupäev: 2016-03-30
 
 1. Nüüd saab märgistada ja tippe ringi liigutada
 
-
-Kuupäev: 2016-03-29 (uut jari ei teinud veel)
+Kuupäev: 2016-03-29
 
 1. Nüüd mahuvad kõik puud ekraanile ära.
 2. Saab valida File->SnapShot See väljastab pildi puust.
