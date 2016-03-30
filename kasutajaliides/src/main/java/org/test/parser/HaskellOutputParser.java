@@ -23,7 +23,7 @@ public class HaskellOutputParser{
 	*
 	*/
 	public static Node parse(String input, List<String> end_states){
-		System.out.println("----input for parse method: " + input);
+		//System.out.println("----input for parse method: " + input);
 
 		countParse++;
 		//System.out.println("we have parsed "+countParse);

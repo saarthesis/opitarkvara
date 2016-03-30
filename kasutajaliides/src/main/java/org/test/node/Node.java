@@ -22,12 +22,16 @@ public class Node {
 
 	private String state;
 	private LinkedList<Node> children;
+	
+	public boolean isSelected = false;
+	public Integer pressedX;
+	public Integer pressedY;
 
 	/*based on state size. Initilaly it is not init.. but after first*/
 	int width_of_box = 0;
 	static final int DISTANCE_BETWEEN_X = 50;
 	static final int FONT_SIZE = 15;
-	static final int HEIGHT_OF_BOX = FONT_SIZE*2;
+	public static final int HEIGHT_OF_BOX = FONT_SIZE*2;
 
 	// for every depth, it goes lower by that amount
 	static final int BETWEEN_LEVELS = 50;
@@ -60,7 +64,7 @@ public class Node {
 				+ "children: " + children; 
 	}
 
-	public String simpleToString(){
+	public String toSimpleString(){
 		return "ID: "+getId()+" x: "+x+" y: "+y+" State: "+state;	
 	}
 
@@ -73,12 +77,25 @@ public class Node {
 	 */
 	public boolean onLocation(int x, int y){
 		try {
-			int endX = this.x + width_of_box;
-			return this.y == y && x >= this.x && x <= endX;
+
+			boolean xb = x >= this.x && x <= getEndX();
+			boolean yb = this.y <= y && y <= getEndY();
+			//
+			boolean b =  xb && yb;
+			//System.out.println("x >= this.x && x <= endX" + xb);
+			return b;
 		}
 		catch(NullPointerException e){
 			return false;
 		}
+	}
+
+	private int getEndX() {
+		return this.x + width_of_box;
+	}
+
+	private int getEndY() {
+		return this.y + HEIGHT_OF_BOX;
 	}
 
 	/**
@@ -113,14 +130,22 @@ public class Node {
 
 	private void paintBox(Graphics g) {
 		Color border_color = new Color(174,174,174);
+		Color border_color_selected = new Color(17,103,252);
 		Color box_color = new Color(236,236,236);
 		
 		if(isAccepting){
 			box_color = new Color(0,255,26);	
 		}
 	
-		g.setColor(border_color);
-		g.fillRect(x-1, y-1, (2 +width_of_box), (2+ HEIGHT_OF_BOX));
+		if(isSelected){
+			g.setColor(border_color_selected);
+			g.fillRect(x-2, y-2, (4 +width_of_box), (4+ HEIGHT_OF_BOX));
+		}else{
+			g.setColor(border_color);
+			g.fillRect(x-1, y-1, (2 +width_of_box), (2+ HEIGHT_OF_BOX));
+		}
+		
+		
 		
 		g.setColor(box_color);
 		g.fillRect(x, y, width_of_box, HEIGHT_OF_BOX);
@@ -131,7 +156,7 @@ public class Node {
 		g.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE)); 
 		g.drawString(state,x + OFFSET, y + (HEIGHT_OF_BOX/2) + ((FONT_SIZE/2)-(FONT_SIZE/2)/2));	
 		g.setColor(Color.RED);
-		int endX = this.x + width_of_box;
+		int endX = getEndX();
 
 		g.setFont(new Font("TimesRoman", Font.BOLD, 8)); 
 		g.drawString(""+id,endX - 20, y + (HEIGHT_OF_BOX/2) + ((FONT_SIZE/2)-(FONT_SIZE/2)/2));	
@@ -275,6 +300,8 @@ public class Node {
 	}
 
 	public void setX(int x){
+		System.out.println("node setX arg: " + x );
+
 		this.x = x;
 	}
 
@@ -296,6 +323,12 @@ public class Node {
 
 	public Integer getY() {
 		return y;
+	}
+
+	public void setY(int y) {
+		System.out.println("node setY arg: " + y );
+		this.y = y;
+		
 	}
 	
 }

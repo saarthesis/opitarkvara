@@ -10,6 +10,9 @@ import org.test.parser.InvalidInputException;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,6 +29,8 @@ public class DrawPanel extends JPanel{
 	private TreePanel treePanel;
 	private Node node; // rootnode
 	
+	private SelectBox selectBox;
+	
 	final int START_X; // mid of jframe. init when constructor! later need to change it, so it adjusts
 	final int START_Y = 20;
 
@@ -36,7 +41,357 @@ public class DrawPanel extends JPanel{
 		// if you want to have scrollpane working you need to adjust the size
 		// if you do not adjust the size, then scroll does not know that it has room to scroll
 		setPreferredSize(new Dimension(500,1000)); 
+		
+		MoveBoxesMouse move = new MoveBoxesMouse();
+		
+		this.addMouseListener(move);
+		this.addMouseMotionListener(move);
 
+	}
+	
+	class SelectBox {
+		
+		private Integer startX;
+		private Integer startY;
+		private Color color = new Color(17,103,252); // same as node selected
+		
+		private Integer endX;
+		private Integer endY;
+		
+		public SelectBox(int x, int y) {
+			// these are beginning coordinates
+			this.startX = x;
+			this.startY = y;
+		}
+		
+		public void setCoordinates(int x, int y){
+			endX = x;
+			endY = y;
+		}
+		
+		public void paint(Graphics g){
+			g.setColor(color);
+			if(endX != null){
+				
+				int lowestX = endX < startX ? endX : startX;
+				int lowestY = endY < startY ? endY : startY;
+				
+
+				g.drawRect(lowestX, lowestY, Math.abs(endX - startX),  Math.abs(endY - startY));
+
+				
+			}
+		}
+
+		public HashSet<Node> getNodesInLoc() {
+			HashSet<Node> ns = new HashSet<Node>();
+			
+			for(Node n : TREE_NODES){
+				
+				if(isInLoc(n)) ns.add(n);
+				
+			}
+				
+			return ns;
+			
+		}
+		
+		private boolean isInLoc(Node n){
+			
+			int lowestX = endX < startX ? endX : startX;
+			int lowestY = endY < startY ? endY : startY;
+			
+			int highestX = endX > startX ? endX: startX;
+			int highestY = endY > startY ? endY : startY;
+
+			boolean xb = n.getX()>= lowestX && n.getX()<=highestX;
+			boolean yb = n.getY()>= lowestY && n.getY()<=highestY;
+			
+			return xb && yb;
+			//if(xb && yb) return true;
+			//else return	n.onLocation(startX, startY);
+		
+		}
+	}
+
+	class MoveBoxesMouse implements MouseListener, MouseMotionListener{
+		
+		Integer startDragX =null;
+		Integer startDragY = null;
+		
+		Integer pressedX = null;
+		Integer pressedY = null; 
+		
+		boolean dragging =false;
+		
+		HashSet<Node> nodesInSelectBoxArea = new HashSet<Node>();
+		
+		/*
+		Integer startX = null;
+		Integer startY = null;
+		Node nodeOnLoc;
+		*/
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			System.out.println("mouse pressed");
+			// meil ei ole ühtegi märgistatud
+			if(nodesInSelectBoxArea.size() == 0){
+				System.out.println("mouse pressed: no selected boxes");
+				pressedX = e.getX();
+				pressedY = e.getY();
+				selectBox = new SelectBox(pressedX, pressedY);			
+			}
+			// meil on mõned märgistatud
+			else if(nodesInSelectBoxArea.size() > 0){
+				System.out.println("mouse pressed: some selected");
+				Node n = DrawPanel.onLocation(e.getX(),e.getY(), null);
+				
+				// vajutas kastist mööda
+				if(n == null || n.isSelected == false){
+					System.out.println("mouse pressed: vajutas kastist mööda");
+					for(Node nn : nodesInSelectBoxArea){
+						nn.isSelected = false;
+						nn.pressedX = null;
+						nn.pressedY = null;
+					}
+					System.out.println("starDragX made null");
+					startDragX = null;
+					startDragY = null;
+					nodesInSelectBoxArea.clear();
+					selectBox = null;
+				}
+				// vajutas kasti peale
+				else{
+					// dragging started
+				}
+			}
+			repaint();
+			
+
+			
+			/*
+			System.out.println("mouse pressed!");
+
+			System.out.println(x + " " + y);
+			nodeOnLoc = DrawPanel.onLocation(x, y, null);
+
+			if(nodeOnLoc != null){
+				startX = nodeOnLoc.getX();
+				startY = nodeOnLoc.getY();
+				nodeOnLoc.isSelected = true;
+			}
+			
+			if(nodeOnLoc == null){
+				
+			}
+			*/
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			System.out.println("mouse released");
+			
+			// meil on selectbox
+			if(selectBox!= null){
+				System.out.println("mouse released: have selectBox");
+				
+				// selectBoxi ei ole tõmmatud, ehk klikitakse ühele kohale
+				if(!dragging){
+					System.out.println("mouse released: no startDragX");
+					
+					Node n = DrawPanel.onLocation(e.getX(), e.getY(), null);
+					n.isSelected = true;
+					n.pressedX = n.getX();
+					n.pressedY = n.getY();
+					nodesInSelectBoxArea.add(n);
+					
+					selectBox = null;
+				}
+				else{
+					// märgistame
+					System.out.println("mouse released märgistame");
+					nodesInSelectBoxArea.addAll(selectBox.getNodesInLoc());
+		
+					for(Node n : nodesInSelectBoxArea){
+						n.isSelected = true;
+						n.pressedX = n.getX();
+						n.pressedY = n.getY();
+					}
+					
+					selectBox = null;
+				}		
+			}
+			// meil ei ole select box
+			else{
+				
+			}
+			
+			
+
+			dragging= false;
+			repaint();
+			
+			
+
+
+			
+			/*
+			pressedX = null;
+			pressedY = null;
+			if(nodeOnLoc != null){
+				nodeOnLoc.isSelected = false;
+				nodeOnLoc = null;	
+			}
+			startX = null;
+			startY = null;
+			
+			if(selectBox!= null){
+				
+				selectAllNodes();
+				
+				selectBox = null;
+			}
+			
+			
+			repaint();
+			*/
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			// (teame kas on märgistatud või mitte)
+			System.out.println("mouse dragged");
+			dragging = true;
+			if(selectBox != null){
+				
+		
+				selectBox.setCoordinates(e.getX(), e.getY());
+
+
+			}
+			
+			// on märgistatuid
+			if(nodesInSelectBoxArea.size() > 0){
+				System.out.println("mouse dragged: have selected boxes");
+				//esmakordne drag
+				if(startDragX == null){
+					System.out.println("mouse dragged: startDragX init");
+					startDragX = e.getX();
+					startDragY = e.getY();
+				}
+				//juba drag alustatud
+				else{
+
+					for(Node n : nodesInSelectBoxArea){
+						
+						int abs = Math.abs(startDragY  - n.pressedY);
+						int newY = e.getY() - abs;
+						
+						System.out.println("dragging node: "+ n.toSimpleString() 
+						+ " pressedX " + n.pressedX 
+						+ " pressedY " + n.pressedY
+						+ " startDragX, startDragY: " + startDragX + ", " + startDragY
+						+ " \nthis is Subtracted From previous: startDragY - n.pressedY =" + abs
+						+ " \ne.getY() " + e.getY()
+						+ " \nthis is Subtracted From previous: startDragX - n.pressedX =" + Math.abs(startDragX - n.pressedX)
+						+ " \ne.getX() " + e.getX()
+						);
+	
+						int absx = Math.abs(startDragX - n.pressedX);
+						//n.setX(e.getX() - absx);
+						
+						if(n.pressedX > startDragX){
+							n.setX(e.getX() + absx);
+						}
+
+						if(n.pressedX < startDragX){
+							n.setX(e.getX() - absx);
+						}
+						
+						
+
+						
+						if(n.pressedY > startDragY){
+							n.setY(e.getY() + abs );
+						}
+
+						if(n.pressedY < startDragY){
+							n.setY(e.getY() - abs);
+						}
+
+						
+									
+					}
+				}
+				
+
+			}
+			// ei ole märgistatuid
+			else{
+				
+			}
+			
+			repaint();
+			
+			
+			/*
+			if(nodeOnLoc != null){
+				System.out.println("not null drag");
+				int dX = e.getX();
+				int dY = e.getY();
+				
+				System.out.println(dX + " " + dY);
+				
+				
+				nodeOnLoc.setX(dX - Math.abs(startX - pressedX));
+
+				nodeOnLoc.setY(dY - Math.abs(startY  - pressedY));
+				
+				
+
+								
+				System.out.println(nodeOnLoc.simpleToString());
+				
+				// reset
+				repaint();
+				
+		
+				
+			}
+			else if(selectBox != null){
+				//System.out.println("null drag");
+				
+				selectBox.setCoordinates(e.getX(), e.getY());
+				repaint();
+
+			}
+			*/
+		}
+
+		@Override
+		public void mouseMoved(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 
 	/**
@@ -59,7 +414,11 @@ public class DrawPanel extends JPanel{
 	*/
 	public static Node onLocation(int x, int y, Node notThis){
 		for(Node n : TREE_NODES){
-			if(!n.equals(notThis) && n.onLocation(x,y)){
+			//System.out.println("OnLocation, looking node: " + n.simpleToString());
+			if(notThis==null && n.onLocation(x, y)){
+				return n;
+			}
+			else if(!n.equals(notThis) && n.onLocation(x,y)){
 				return n;
 			} 
 		}
@@ -191,6 +550,10 @@ public class DrawPanel extends JPanel{
 	 */
 	public void paintComponent(Graphics g) {
 	    super.paintComponent(g);
+	    
+	    if(selectBox != null){
+	    	selectBox.paint(g);
+	    }
 	    
 	    paintTree(g);
 	}  
@@ -326,7 +689,7 @@ public class DrawPanel extends JPanel{
 				// print for testing
 				System.out.println("before adding to stack");
 				for(Node stack_node : df){
-					System.out.println(stack_node.simpleToString());
+					System.out.println(stack_node.toSimpleString());
 				}
 				
 				for(Node nn : n.getChildren()){ // hmm miks tagurpidi
@@ -351,7 +714,7 @@ public class DrawPanel extends JPanel{
 
 				//System.out.println("after adding to stack");
 				for(Node stack_node : df){
-					System.out.println(stack_node.simpleToString());
+					System.out.println(stack_node.toSimpleString());
 				}
 			}
 			
