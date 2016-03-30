@@ -8,6 +8,11 @@
 
 ## Kokkuvõtlik logi:
 
+Kuupäev: 2016-03-30
+
+1. Nüüd saab märgistada ja tippe ringi liigutada
+
+
 Kuupäev: 2016-03-29 (uut jari ei teinud veel)
 
 1. Nüüd mahuvad kõik puud ekraanile ära.
