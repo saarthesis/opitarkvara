@@ -8,6 +8,10 @@
 
 ## Kokkuvõtlik logi:
 
+Kuupäev: 2016-04-12
+
+1. Bug fixes: accepting states, teadmusbaas
+
 Kuupäev: 2016-03-30
 
 1. Nüüd saab märgistada ja tippe ringi liigutada
