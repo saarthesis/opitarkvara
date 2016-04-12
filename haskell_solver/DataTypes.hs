@@ -6,7 +6,7 @@ data Task
 	ends :: [State],
 	productions :: [Production],
 	notallowed :: [State]
-}
+} deriving(Show)
 
 data Production 
 	= Production {

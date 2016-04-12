@@ -20,8 +20,7 @@ import javax.swing.JOptionPane;
 
 
 import java.lang.Runtime;
-import java.io.IOException;
-import java.io.Reader;
+
 import java.io.InputStreamReader;
 import java.lang.Exception;
 
@@ -29,12 +28,7 @@ import java.lang.Exception;
 import org.apache.commons.io.IOUtils;
 import org.test.GUI.tagid.puu.DrawPanel;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
+
 
 public class FileMenu extends JMenu{
 

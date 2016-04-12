@@ -12,11 +12,91 @@ ProductionsSolver reads Productions from file.
 -- 3. No parenthesis inside of teadmusbaas and times and dividings etc
 -}
 
-import ProductionsReader(parseProductions, productionOnState, tupleIntoState)
+import ProductionsReader
 
 import DataTypes
 import Data.List
 import System.Environment
+
+import qualified Data.Text as T 
+import qualified Data.Map as M
+import Data.Char
+
+
+test1 f = do
+	--ps <- readProductions "../Executable_program_here/teadmusbaas/mees_rebane_hani_vili_PROD.txt"
+	--let p = head ps
+	--let s = State [0,0]
+	--let ms = productionOnState p s
+	--let vars = variables (start p) s
+	--let ts = tupleIntoState $ calculateTuple $ replaceVariables vars (end p)
+	--let cnd = replaceVariables vars (condition p)
+	--let temp = map T.unpack $ T.splitOn (T.pack "&&") (T.pack cnd) 
+	--let cnd_result_temp = map readStrCondition temp
+	--let x1 = readStrCondition "(0<10)"
+	--let cnd_result = and $ map readStrCondition temp
+	--let cnd_result = and $ map readStrCondition $ map T.unpack $ T.splitOn (T.pack "&&") (T.pack cnd)
+	--let ft = buildFullTreeFromFile2 "../Executable_program_here/teadmusbaas/mees_rebane_hani_vili_PROD.txt"	
+	s <- readFirstState f 
+	es <- readEndStates f
+	ps <- readProductions f
+	ns <- readNotAllowed f
+	let t = Task s es ps ns
+	--let n = Node s [] []
+	let bug_state = State [10,0]
+	let n = Node bug_state [] []
+	let ft = fullTree n t
+	let aps = applyProductions (productions t) (state n) 
+	let ms = map (\x -> productionOnState x bug_state) ps
+	let mms = productionOnState (ps !! 0) bug_state
+	let bug_p = ps !! 0
+	-- production on state testing
+	let vars = variables (start bug_p) bug_state
+	let rep_vars = replaceVariables vars (end bug_p)
+	let calc_tuple = calculateTuple rep_vars
+	let	ss = tupleIntoState $ calc_tuple
+	let	x = replaceVariables vars (condition bug_p)
+	let cnd = map T.unpack $ T.splitOn (T.pack "&&") (T.pack x)
+	let parseCnd = if head cnd == "" then True else and $ map readStrCondition cnd
+	let sm = statematch bug_state (start bug_p)
+	let a = T.dropAround (\x -> x == ')' || x == '(') (T.pack rep_vars)
+	let bs =T.splitOn (T.pack ",") a
+	let cs = map (\x -> calculateString (T.unpack x)) $ bs
+	let ns = concat $ intersperse "," $ map (\x->show x) cs
+	--buildFullTreeFromFile f
+	-- "(x,0)"
+	return sm
+--calculateTuple :: String -> String
+--calculateTuple s =  "(" ++ ns ++ ")"
+--	where 
+--		a = T.dropAround (\x -> x == ')' || x == '(') (T.pack s)
+--		bs =T.splitOn (T.pack ",") a
+--		cs = map (\x -> calculateString (T.unpack x)) $ bs
+--		ns = intersperse ',' $ map (intToDigit) cs
+
+--productionOnState :: Production -> State -> Maybe State
+--productionOnState p s
+--	| condition p == "" && sm
+--		= Just ss
+--	| sm && parseCnd == True 
+--		= Just ss
+--	| otherwise
+--		= Nothing
+--	where
+--		vars = variables (start p) s
+--		ss = tupleIntoState $ calculateTuple $ replaceVariables vars (end p)
+--		parseCnd = and $ map readStrCondition $ map T.unpack $ T.splitOn (T.pack "&&") (T.pack x)
+--		x = replaceVariables vars (condition p)
+--		sm = statematch s (start p)
+
+--applyProductions :: [Production] -> State -> [State]
+--applyProductions ps s = map out ds
+--	where 
+--		ms = map (\x -> productionOnState x s) ps 
+--		fs = filter (/= Nothing) ms
+--		ds = map head $ group $ sort fs
+--		out (Just x) = x
+
 
 
 {- this is for returning nodes -}
@@ -65,7 +145,8 @@ fullTree n t
 	| otherwise -- has children. repeat process
 		= Node (state n) (parents n) $ map (\c -> fullTree c t) cs
 	where
-		ss = filter (\s -> not $ elem s $ notallowed t) $ applyProductions (productions t) (state n) -- [State]	
+		aps = applyProductions (productions t) (state n) 
+		ss = filter (\s -> not $ elem s $ notallowed t) $ aps 
 		ps = parents n ++ [n] -- previous generations
 		ns = map (\s -> Node s ps []) ss
 		cs = filter (not . loop) ns

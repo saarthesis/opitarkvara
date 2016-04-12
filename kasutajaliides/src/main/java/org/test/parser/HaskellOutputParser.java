@@ -30,12 +30,16 @@ public class HaskellOutputParser{
 		String state = getState(input);
 		LinkedList<Node> children = childrenNodes(input, end_states);
 		
+		//System.out.println("End states are " + end_states);
+	//	for(String s : end_states) System.out.println("end_state:" + s + "equals state:" + state.equals(s));
+		//System.out.println("this state is" + state + " and is in end_states " + end_states.contains(state));
+		
 		return new Node(state, children,end_states.contains(state));
 
 	}
 
 	public static String getState(String input){
-		String state = input.replaceAll("^Node \\{state = State \\[|\\].*$","");
+		String state = input.replaceAll("^Node \\{state = State \\[|\\].*$","").trim();
 		return state;	
 	}
 

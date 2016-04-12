@@ -30,22 +30,36 @@ import Data.List
 -- AND
 -- productionOnState (Production "(h+v/=2)&&(r+h/=2)" "(1,r,h,v)" "(0,r,h,v)") (State [1,1,0,1])
 -- returns: Just $ State [0,1,0,1]
-
+-- AND
+-- Production {condition = "(v<10)", start = "(r,v)", end = "(r,v+1)"}
+-- State [0,9]
+-- Just $ State [0,10]
 productionOnState :: Production -> State -> Maybe State
-productionOnState p s
+productionOnState p on_state
 	| condition p == "" && sm
-		= Just ss
+		= Just uus_state
 	| sm && parseCnd == True 
-		= Just ss
+		= Just uus_state
 	| otherwise
 		= Nothing
 	where
-		vars = variables (start p) s
-		ss = tupleIntoState $ calculateTuple $ replaceVariables vars (end p)
-		parseCnd = and $ map readStrCondition $ map T.unpack $ T.splitOn (T.pack "&&") (T.pack x)
+		-- saab vastavusse muutujad
+		vars = variables (start p) on_state
+		-- asendab muutujad vastavalt
+		rep_vars = replaceVariables vars (end p)
+		-- arvutab tuple, kui seal peaks olema mingeid arvutustehteid
+		calc_tuple = calculateTuple rep_vars
+		-- teeb eelneva state-ks
+		uus_state = tupleIntoState calc_tuple
+		-- asendab muutujad ka tingimusele, kui peaks olema
 		x = replaceVariables vars (condition p)
-		sm = statematch s (start p)
+		-- listi string conditionitest
+		cnd = map T.unpack $ T.splitOn (T.pack "&&") (T.pack x)
+		-- kontrollib paikapidavust
+		parseCnd = if head cnd == "" then True else and $ map readStrCondition cnd
+		sm = statematch on_state (start p)
 
+-- State [10,0]->"(x,0)"->
 -- statematch (State [1,1,1,1]) "(1,r,1,v)" 
 -- returns: True
 -- statematch (State [0,1,1,1]) "(1,r,1,v)" 
@@ -54,10 +68,16 @@ statematch :: State -> String -> Bool
 statematch (State is) xs = and $ map (\(a,b) -> if a == b || isLetter b then True else False)  zs
 	where
 		zs = zip (rm $ show is) (rm xs)
+		-- eemaldab ümbrised
 		rm t = T.unpack $ T.dropAround (\x -> x == ')' || x == '(' || x == '[' || x == ']') (T.pack t)
 
-
-
+testStateMatch1 = do
+	let x1 = "(x,0)"
+	let x2 = show [10,0]
+	let rm1 = T.unpack $ T.dropAround (\x -> x == ')' || x == '(' || x == '[' || x == ']') (T.pack x1)
+	let rm2 = T.unpack $ T.dropAround (\x -> x == ')' || x == '(' || x == '[' || x == ']') (T.pack x2)
+	let zs = zip rm2 rm1	
+	print zs
 
 -- [("s",2),("v",3)]
 -- "(0,v)"
@@ -155,18 +175,22 @@ readStrCondition s = f (intoCondition s)
 				= (calculateString a) /= (calculateString c)
 -- "(3>=3-2)"
 -- returns: ("3",">=","3-2")
+-- "(0<10)"
+-- returns: ("0","<","10")
 intoCondition :: String -> (String,String,String)
 intoCondition s = parser s 1 ("","","")
 
 -- calculateTuple "(3-3+2,3)" 
 -- returns: "(2,3)"
+-- "(0,9+1)"
+-- returns 
 calculateTuple :: String -> String
 calculateTuple s =  "(" ++ ns ++ ")"
 	where 
 		a = T.dropAround (\x -> x == ')' || x == '(') (T.pack s)
 		bs =T.splitOn (T.pack ",") a
 		cs = map (\x -> calculateString (T.unpack x)) $ bs
-		ns = intersperse ',' $ map (intToDigit) cs
+		ns = concat $ intersperse "," $ map (\x -> show x) cs
 
 	
 
@@ -175,21 +199,41 @@ calculateTuple s =  "(" ++ ns ++ ")"
 -- AND
 -- "3-2+4"
 -- returns 5
+-- "10"
+-- returns: 10
 calculateString :: String -> Int
-calculateString xs = calcStr Nothing xs
+calculateString xs = calcList $ calcStr_helper xs
 
--- Nothing 
--- "3-2+4"
--- returns: 5
-calcStr :: Maybe Int -> String -> Int
-calcStr (Just i) [] = i
-calcStr Nothing (x:xs) = calcStr (Just $ digitToInt x) xs
-calcStr (Just i) (a:b:xs)
-	| a == '-'
-		= calcStr (Just (i - (digitToInt b))) xs
-	| a == '+'
-		= calcStr (Just (i + (digitToInt b))) xs 
+--["3","+","2","-","4"]
+--returns: 1
+calcList :: [String] -> Int
+calcList xs = calcList1 xs 0
 
+calcList1 :: [String] -> Int -> Int
+calcList1 [] i = i
+calcList1 [x] i = i + (read x :: Int) 
+calcList1 (a:b:c:xs) i 
+	| b == "+"
+		= calcList1 xs ((read a :: Int) + (read c ::Int))
+	| b == "-"
+		= calcList1 xs ((read a :: Int) - (read c ::Int))
+calcList1 (a:b:[]) i 
+	| a == "+"
+		= calcList1 [] (i + (read b ::Int))
+	| a == "-"
+		= calcList1 [] (i - (read b ::Int))
+
+--"3+2-4"
+--["3","+","2","-","4"]
+calcStr_helper xs = calcStr_helper1 xs [] ""
+
+calcStr_helper1 :: String -> [String] -> String -> [String]
+calcStr_helper1 [] acc l = acc ++ [l]
+calcStr_helper1 (x:xs) acc l
+	| isDigit x
+		= calcStr_helper1 xs acc (l ++ [x])
+	| otherwise
+		= calcStr_helper1 xs (acc ++ [l] ++ [[x]]) "" 
 
 
 
