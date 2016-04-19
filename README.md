@@ -8,7 +8,7 @@
 
 ## Kokkuvõtlik logi:
 
-Kuupäev: 2016-04-12
+Kuupäev: 2016-04-19
 
 1. Salvestmise fix.
 2. Avatud faili nimi aknale külge
