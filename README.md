@@ -10,7 +10,7 @@
 
 Kuupäev: 2016-04-19
 
-1. Salvestmise fix.
+1. Salvestamise fix.
 2. Avatud faili nimi aknale külge
 
 Kuupäev: 2016-04-12
