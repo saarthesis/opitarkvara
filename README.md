@@ -2,11 +2,15 @@
 
 ## Kuidas jooksutada programmi
 
-1. Laadi alla zip [lingil] (https://www.dropbox.com/s/nj1ikm19mkwerle/Opitarkvara_1.3.zip?dl=0) (uus väljalase 2016-03-30)
+1. Laadi alla zip [lingil] (https://www.dropbox.com/s/eehmpk59itonjz1/Opitarkvara_1.4.zip?dl=0) (uus väljalase 2016-04-12)
 2. Paki lahti
 3. java -jar kasutajaliides.jar
 
 ## Kokkuvõtlik logi:
+
+Kuupäev: 2016-04-12
+
+1. Bug fixes: accepting states, teadmusbaas
 
 Kuupäev: 2016-03-30
 
