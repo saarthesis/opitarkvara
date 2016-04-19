@@ -32,6 +32,7 @@ public class MainWindow extends JFrame{
 		Dimension screenSize = new Dimension(WIDTH, 700);//Toolkit.getDefaultToolkit().getScreenSize();
 	    setBounds(0,0,screenSize.width, screenSize.height);
 	    
+	    
 	    // menu bar
 		MenuBar menubar = new MenuBar(this);
 		setJMenuBar(menubar);

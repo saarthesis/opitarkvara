@@ -251,6 +251,7 @@ public class FileMenu extends JMenu{
 
 			File file = fileChooser.getSelectedFile();
 			selectedFile = file;
+			mw.setTitle(file.getName());
 
 			try {
 
@@ -269,6 +270,7 @@ public class FileMenu extends JMenu{
 	}
 
 	private void saveFile(){
+		System.out.println("savaeFile");
 
 		if(selectedFile == null){
 
@@ -293,7 +295,7 @@ public class FileMenu extends JMenu{
 	}
 
 	private void saveAsFile(){
-
+		System.out.println("Save as file");
 		String path = FileMenu.class.getProtectionDomain().getCodeSource().getLocation().getPath() ; 
 
 		JFileChooser fileChooser = new JFileChooser(path);
@@ -302,14 +304,16 @@ public class FileMenu extends JMenu{
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 
 			File file = fileChooser.getSelectedFile();
+			System.out.println("selected file" + file.getName());
 			String text = getTeadmusbaasText();
 
 			try{
 				new FileReader(file);
-				selectedFile = file;
+				System.out.println("this file already existed, therefore we write that over");
 				JOptionPane.showMessageDialog(mw, "Saved over existing file!");
 
 			}catch(FileNotFoundException e){
+				System.out.println("we did not find that file!");
 				JOptionPane.showMessageDialog(mw, "Made new file!");
 			}
 
@@ -317,6 +321,8 @@ public class FileMenu extends JMenu{
 				PrintWriter pw = new PrintWriter(file);
 				pw.write(text);
 				pw.close();
+				selectedFile = file;
+				mw.setTitle(file.getName());
 
 			}
 			catch(FileNotFoundException e){
