@@ -1,4 +1,4 @@
-package org.test.GUI;
+package org.test.GUI.menu;
 
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -26,6 +26,7 @@ import java.lang.Exception;
 
 
 import org.apache.commons.io.IOUtils;
+import org.test.GUI.MainWindow;
 import org.test.GUI.tagid.puu.DrawPanel;
 
 
@@ -143,7 +144,7 @@ public class FileMenu extends JMenu{
 		String output = getHaskellOutputForFullTreeNodes(p);
 		// 5. display output in tree tab
 
-		System.out.println("WE got haskell output length " + output.length());
+		//System.out.println("WE got haskell output length " + output.length());
 		
 		String endStates = getHaskellOutputForEndStates(p);
 		
@@ -173,10 +174,10 @@ public class FileMenu extends JMenu{
                 }
  
                 int exitVal = pr.waitFor();
-                System.out.println("Exited with error code "+exitVal);
+               // System.out.println("Exited with error code "+exitVal);
  
         	} catch(Exception e) {
-                System.out.println(e.toString());
+          //      System.out.println(e.toString());
                 e.printStackTrace();
             }
 
@@ -211,10 +212,10 @@ public class FileMenu extends JMenu{
                 }
  
                 int exitVal = pr.waitFor();
-                System.out.println("Exited with error code "+exitVal);
+            //    System.out.println("Exited with error code "+exitVal);
  
         	} catch(Exception e) {
-                System.out.println(e.toString());
+              //  System.out.println(e.toString());
                 e.printStackTrace();
             }
 
@@ -295,7 +296,7 @@ public class FileMenu extends JMenu{
 	}
 
 	private void saveAsFile(){
-		System.out.println("Save as file");
+		//System.out.println("Save as file");
 		String path = FileMenu.class.getProtectionDomain().getCodeSource().getLocation().getPath() ; 
 
 		JFileChooser fileChooser = new JFileChooser(path);
@@ -304,16 +305,16 @@ public class FileMenu extends JMenu{
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 
 			File file = fileChooser.getSelectedFile();
-			System.out.println("selected file" + file.getName());
+			//System.out.println("selected file" + file.getName());
 			String text = getTeadmusbaasText();
 
 			try{
 				new FileReader(file);
-				System.out.println("this file already existed, therefore we write that over");
+			//	System.out.println("this file already existed, therefore we write that over");
 				JOptionPane.showMessageDialog(mw, "Saved over existing file!");
 
 			}catch(FileNotFoundException e){
-				System.out.println("we did not find that file!");
+			//	System.out.println("we did not find that file!");
 				JOptionPane.showMessageDialog(mw, "Made new file!");
 			}
 

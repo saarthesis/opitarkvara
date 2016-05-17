@@ -155,11 +155,13 @@ public class Node {
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE)); 
 		g.drawString(state,x + OFFSET, y + (HEIGHT_OF_BOX/2) + ((FONT_SIZE/2)-(FONT_SIZE/2)/2));	
-		g.setColor(Color.RED);
-		int endX = getEndX();
+		
+		
+		//g.setColor(Color.RED);
+		//int endX = getEndX();
 
-		g.setFont(new Font("TimesRoman", Font.BOLD, 8)); 
-		g.drawString(""+id,endX - 20, y + (HEIGHT_OF_BOX/2) + ((FONT_SIZE/2)-(FONT_SIZE/2)/2));	
+		//g.setFont(new Font("TimesRoman", Font.BOLD, 8)); 
+		//g.drawString(""+id,endX - 20, y + (HEIGHT_OF_BOX/2) + ((FONT_SIZE/2)-(FONT_SIZE/2)/2));	
 	}
 
 	/**

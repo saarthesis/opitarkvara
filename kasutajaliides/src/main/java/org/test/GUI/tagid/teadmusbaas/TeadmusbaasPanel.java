@@ -1,4 +1,4 @@
-package org.test.GUI.tagid;
+package org.test.GUI.tagid.teadmusbaas;
 
 import java.awt.GridLayout;
 
@@ -7,9 +7,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+/**
+ * This is the area where is located teadmusbaas text.
+ * This panel is inside of tag.
+ *
+ */
 public class TeadmusbaasPanel extends JPanel{
 	
-	JTextArea teadmusbaasText;
+	private JTextArea teadmusbaasText;
 	
 	public TeadmusbaasPanel() {
 		

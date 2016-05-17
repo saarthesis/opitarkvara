@@ -11,10 +11,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
-import org.test.GUI.AlgorithmPanel;
 import org.test.GUI.MainWindow;
 import org.test.parser.InvalidInputException;
 
+/**
+ * Inside of "puu" tag
+ *
+ */
 public class TreePanel extends JPanel{
 
 	public DrawPanel drawArea;
@@ -42,7 +45,7 @@ public class TreePanel extends JPanel{
 	}
 
 	public String getAlgo(){
-		return algorithmArea.algoSelected();
+		return algorithmArea.getSelected();
 	}
 
 

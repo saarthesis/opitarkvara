@@ -31,8 +31,8 @@ public class DrawPanel extends JPanel{
 	
 	private SelectBox selectBox;
 	
-	final int START_X; // mid of jframe. init when constructor! later need to change it, so it adjusts
-	final int START_Y = 20;
+	private final int START_X; // mid of jframe. init when constructor! later need to change it, so it adjusts
+	private final int START_Y = 20;
 
 	public DrawPanel(TreePanel treePanel){
 		this.treePanel = treePanel;
@@ -139,28 +139,28 @@ public class DrawPanel extends JPanel{
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			System.out.println("mouse pressed");
+			//System.out.println("mouse pressed");
 			// meil ei ole ühtegi märgistatud
 			if(nodesInSelectBoxArea.size() == 0){
-				System.out.println("mouse pressed: no selected boxes");
+				//System.out.println("mouse pressed: no selected boxes");
 				pressedX = e.getX();
 				pressedY = e.getY();
 				selectBox = new SelectBox(pressedX, pressedY);			
 			}
 			// meil on mõned märgistatud
 			else if(nodesInSelectBoxArea.size() > 0){
-				System.out.println("mouse pressed: some selected");
+				//System.out.println("mouse pressed: some selected");
 				Node n = DrawPanel.onLocation(e.getX(),e.getY(), null);
 				
 				// vajutas kastist mööda
 				if(n == null || n.isSelected == false){
-					System.out.println("mouse pressed: vajutas kastist mööda");
+					//System.out.println("mouse pressed: vajutas kastist mööda");
 					for(Node nn : nodesInSelectBoxArea){
 						nn.isSelected = false;
 						nn.pressedX = null;
 						nn.pressedY = null;
 					}
-					System.out.println("starDragX made null");
+					//System.out.println("starDragX made null");
 					startDragX = null;
 					startDragY = null;
 					nodesInSelectBoxArea.clear();
@@ -195,15 +195,15 @@ public class DrawPanel extends JPanel{
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			System.out.println("mouse released");
+			//System.out.println("mouse released");
 			
 			// meil on selectbox
 			if(selectBox!= null){
-				System.out.println("mouse released: have selectBox");
+				//System.out.println("mouse released: have selectBox");
 				
 				// selectBoxi ei ole tõmmatud, ehk klikitakse ühele kohale
 				if(!dragging){
-					System.out.println("mouse released: no startDragX");
+				//	System.out.println("mouse released: no startDragX");
 					
 					Node n = DrawPanel.onLocation(e.getX(), e.getY(), null);
 					n.isSelected = true;
@@ -215,7 +215,7 @@ public class DrawPanel extends JPanel{
 				}
 				else{
 					// märgistame
-					System.out.println("mouse released märgistame");
+				//	System.out.println("mouse released märgistame");
 					nodesInSelectBoxArea.addAll(selectBox.getNodesInLoc());
 		
 					for(Node n : nodesInSelectBoxArea){
@@ -278,7 +278,7 @@ public class DrawPanel extends JPanel{
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			// (teame kas on märgistatud või mitte)
-			System.out.println("mouse dragged");
+			//System.out.println("mouse dragged");
 			dragging = true;
 			if(selectBox != null){
 				
@@ -290,10 +290,10 @@ public class DrawPanel extends JPanel{
 			
 			// on märgistatuid
 			if(nodesInSelectBoxArea.size() > 0){
-				System.out.println("mouse dragged: have selected boxes");
+		//		System.out.println("mouse dragged: have selected boxes");
 				//esmakordne drag
 				if(startDragX == null){
-					System.out.println("mouse dragged: startDragX init");
+			//		System.out.println("mouse dragged: startDragX init");
 					startDragX = e.getX();
 					startDragY = e.getY();
 				}
@@ -304,7 +304,7 @@ public class DrawPanel extends JPanel{
 						
 						int abs = Math.abs(startDragY  - n.pressedY);
 						int newY = e.getY() - abs;
-						
+				/*		
 						System.out.println("dragging node: "+ n.toSimpleString() 
 						+ " pressedX " + n.pressedX 
 						+ " pressedY " + n.pressedY
@@ -313,7 +313,7 @@ public class DrawPanel extends JPanel{
 						+ " \ne.getY() " + e.getY()
 						+ " \nthis is Subtracted From previous: startDragX - n.pressedX =" + Math.abs(startDragX - n.pressedX)
 						+ " \ne.getX() " + e.getX()
-						);
+						);*/
 	
 						int absx = Math.abs(startDragX - n.pressedX);
 						//n.setX(e.getX() - absx);
@@ -401,7 +401,7 @@ public class DrawPanel extends JPanel{
 	 */
 	public static void printAllTreeNodes(){
 		for(Node n : TREE_NODES){
-			System.out.println(n);
+		//	System.out.println(n);
 		}
 	}
 
@@ -458,7 +458,7 @@ public class DrawPanel extends JPanel{
 				createFullTreeNode(nodesInput, endStates);
 				displayWidth(nodesInput, endStates);
 				break;
-			case "Full Tree":
+			case "Täispuu":
 				createFullTreeNode(nodesInput, endStates);
 				repaint();
 				break;

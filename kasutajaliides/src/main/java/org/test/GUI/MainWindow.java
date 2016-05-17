@@ -7,8 +7,9 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
-import org.test.GUI.tagid.TeadmusbaasPanel;
+import org.test.GUI.menu.MenuBar;
 import org.test.GUI.tagid.puu.TreePanel;
+import org.test.GUI.tagid.teadmusbaas.TeadmusbaasPanel;
 import org.test.parser.InvalidInputException;
 
 import javax.swing.JScrollPane;
@@ -17,12 +18,15 @@ import javax.swing.JTabbedPane;
 
 import java.lang.Exception;
 
+/**
+ * This is the main window. Contains tabs.
+ */
 public class MainWindow extends JFrame{
 	
 	private JTabbedPane tabbedPane;
 
 	public TreePanel puuPanel;
-	private TeadmusbaasPanel teadmusbaasPanel;
+	public TeadmusbaasPanel teadmusbaasPanel;
 
 	
 	private final int WIDTH = 1000;
@@ -68,7 +72,7 @@ public class MainWindow extends JFrame{
 
 	public void displayOutput(String input, String endStates){
 		try{
-			System.out.println("display output");
+			//System.out.println("display output");
 			puuPanel.displayOutput(input, endStates);
 		}
 		catch(InvalidInputException e){

@@ -1,13 +1,7 @@
-package org.test.GUI;
+package org.test.GUI.tagid.puu;
 
 import javax.swing.JPanel;
-import java.awt.GridLayout;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import java.awt.Color;
 import javax.swing.JCheckBox;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -20,7 +14,7 @@ public class AlgorithmPanel extends JPanel{
 	public AlgorithmPanel(){
 		createCheckBox("Süvitsi", true);
 		createCheckBox("Laiuti", false);
-		createCheckBox("Full Tree", false);
+		createCheckBox("Täispuu", false);
 	}
 
 	private void createCheckBox(String title, boolean isSelected ){
@@ -30,20 +24,20 @@ public class AlgorithmPanel extends JPanel{
 			public void itemStateChanged(ItemEvent ev){
 				int state = ev.getStateChange();
 		        if (state == ItemEvent.SELECTED) {
-		        	unselectEveryElse(box);
+		        	deselectEveryoneElse(box);
 		        }
 			}
 		});
 		add(box);
 	}
 
-	private void unselectEveryElse(JCheckBox box){
+	private void deselectEveryoneElse(JCheckBox box){
 		for(JCheckBox b : boxes){
 			if(!b.equals(box) && b.isSelected()) b.setSelected(false);
 		}
 	}
 
-	public String algoSelected(){
+	public String getSelected(){
 		for(JCheckBox b : boxes){
 			if(b.isSelected()) return b.getText();
 		}
