@@ -302,7 +302,7 @@ public class Node {
 	}
 
 	public void setX(int x){
-		System.out.println("node setX arg: " + x );
+		//System.out.println("node setX arg: " + x );
 
 		this.x = x;
 	}
@@ -328,7 +328,7 @@ public class Node {
 	}
 
 	public void setY(int y) {
-		System.out.println("node setY arg: " + y );
+		//System.out.println("node setY arg: " + y );
 		this.y = y;
 		
 	}

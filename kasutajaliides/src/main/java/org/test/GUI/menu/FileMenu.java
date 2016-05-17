@@ -271,7 +271,7 @@ public class FileMenu extends JMenu{
 	}
 
 	private void saveFile(){
-		System.out.println("savaeFile");
+		//System.out.println("savaeFile");
 
 		if(selectedFile == null){
 
