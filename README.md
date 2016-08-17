@@ -10,7 +10,7 @@
 
 Kuupäev: 2016-08-17
 
-1. Windowsi versioon zip lisatud.
+1. Windowsi versioon.
 
 Kuupäev: 2016-05-17
 
