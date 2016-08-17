@@ -2,7 +2,7 @@
 
 ## Kuidas jooksutada programmi
 
-1. Laadi alla zip [lingil] (https://www.dropbox.com/s/e9ndrj8t0ohb68c/Opitarkvara_1.6.zip?dl=0) (uus väljalase 2016-05-17)
+1. Laadi alla zip [Ubuntu] (https://www.dropbox.com/s/e9ndrj8t0ohb68c/Opitarkvara_1.6.zip?dl=0) [Win] (https://www.dropbox.com/s/nut9njz5nedqlzo/win_version.zip?dl=0) (väljalase 2016-05-17)
 2. Paki lahti
 3. java -jar kasutajaliides.jar
 
