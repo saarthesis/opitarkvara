@@ -8,6 +8,10 @@
 
 ## Kokkuvõtlik logi:
 
+Kuupäev: 2016-08-17
+
+1. Windowsi versioon zip lisatud.
+
 Kuupäev: 2016-05-17
 
 1. Mõned debug laused eemaldatud
